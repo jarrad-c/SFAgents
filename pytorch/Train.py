@@ -43,11 +43,14 @@ def simulate(episode, workers, model, optim, rewardQueue, batch_save, path):
 
     while True:
         episode += 1
+        print("Inside the loop")
         if episode % batch_save == 0:
+            print("Saving")
             torch.save(model.state_dict(), path + "models/" + str(episode))
             torch.save(optim.state_dict(), path + "optims/" + str(episode))
-
+        print("Waiting for rewardque")
         reward = rewardQueue.get()
+        print("Got rewardque")
         stats.update(reward)
 
 

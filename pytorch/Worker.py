@@ -61,7 +61,7 @@ class Worker(mp.Process):
         done = False
 
         for i in range(self.epoch_size):
-
+            print('epochs happening', i)
             while not done:
                 x = wu.prepro(frames)
 
@@ -82,11 +82,11 @@ class Worker(mp.Process):
 
                 epoch_reward += rew
 
-                if done:
-                    total_round += 1
-                    histories.append({"moveAction": [], "attackAction": [], "reward": []})
-                    observations.append([])
-                    self.rewardQueue.put({"reward": epoch_reward})
-                    frames = self.env.reset()
+                #if done:
+            total_round += 1
+            histories.append({"moveAction": [], "attackAction": [], "reward": []})
+            observations.append([])
+            self.rewardQueue.put({"reward": epoch_reward})
+            frames = self.env.reset()
 
         return observations, histories, frames
