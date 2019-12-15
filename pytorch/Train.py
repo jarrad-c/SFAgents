@@ -25,12 +25,13 @@ def setupModel(learning_rate, episode, framesPerStep, loadPath):
 
 
 def setupWorkers(roms_path, difficulty, epoch_size, learning_rate, frameRatio, framesPerStep, episode, workerCount, loadPath):
+    env_ids = ['MortalKombat3-Genesis', 'StreetFighterIISpecialChampionEdition-Genesis']
     model, optim = setupModel(learning_rate, episode, framesPerStep, loadPath)
     criterion = nn.CrossEntropyLoss(reduce=False)
 
     rewardQ = Queue()
 
-    workers = [Worker(f"worker{i}", roms_path, difficulty, epoch_size, model, optim, criterion, rewardQ, frameRatio, framesPerStep) for i in range(workerCount)]
+    workers = [Worker(env_ids[i], roms_path, difficulty, epoch_size, model, optim, criterion, rewardQ, frameRatio, framesPerStep) for i in range(workerCount)]
     return workers, model, optim, rewardQ
 
 
@@ -58,7 +59,7 @@ if __name__ == '__main__':
     frameRatio = 2
     framesPerStep = 3
     learning_rate = 5e-5
-    episode = 2200  # Change episode to load from presaved model, check saves for saves
+    episode = 0  # Change episode to load from presaved model, check saves for saves
     epoch_size = 1  # How many episodes before training
     batch_save = 100  # How many results before saving the current model and optimiser
     workerCount = 2  # How many workers to train the model in parallel

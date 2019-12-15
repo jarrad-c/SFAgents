@@ -3,7 +3,7 @@ import torch.multiprocessing as mp
 from torch.autograd import Variable
 import torch.nn.functional as F
 import pytorch.WorkerUtils as wu
-from MAMEToolkit.sf_environment import Environment
+import retro
 import traceback
 import logging
 
@@ -30,8 +30,9 @@ class Worker(mp.Process):
     def run(self):
         try:
             logger.info("Starting Worker")
-            self.env = Environment(self.env_id, self.roms_path, difficulty=self.difficulty, frame_ratio=self.frameRatio, frames_per_step=self.framesPerStep, throttle=False)
-            frames = self.env.start()
+            self.env = retro.make(self.env_id, record='rec/')
+            # self.env = Environment(self.env_id, self.roms_path, difficulty=self.difficulty, frame_ratio=self.frameRatio, frames_per_step=self.framesPerStep, throttle=False)
+            # frames = self.env.start()
             while True:
                 self.model.eval()
 
@@ -67,18 +68,19 @@ class Worker(mp.Process):
                 histories[total_round]["moveAction"].append(torch.FloatTensor(1).fill_(moveAction))
                 histories[total_round]["attackAction"].append(torch.FloatTensor(1).fill_(attackAction))
 
-                frames, r, round_done, stage_done, game_done = self.env.step(moveAction, attackAction)
+                # TODO: fix action mapping
+                obs, rew, done, info = self.env.step(moveAction, attackAction)
 
-                histories[total_round]["reward"].append(torch.FloatTensor(1).fill_(r["P1"]))
+                histories[total_round]["reward"].append(torch.FloatTensor(1).fill_(rew))
 
-                epoch_reward += r["P1"]
+                epoch_reward += rew
 
-                if round_done:
+                if done:
                     total_round += 1
                     histories.append({"moveAction": [], "attackAction": [], "reward": []})
                     observations.append([])
-                    if game_done:
-                        self.rewardQueue.put({"reward": epoch_reward, "stage": self.env.stage})
+                    # if game_done:
+                        # self.rewardQueue.put({"reward": epoch_reward, "stage": self.env.stage})
                     frames = self.env.reset()
 
         return observations, histories, frames
