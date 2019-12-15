@@ -14,11 +14,10 @@ logger = logging.getLogger(__name__)
 # The worker class for running agent vs Computer training, aka story mode training
 class Worker(mp.Process):
 
-    def __init__(self, env_id, roms_path, difficulty, epoch_size, model, optim, criterion, rewardQueue, frameRatio, framesPerStep):
+    def __init__(self, env_id, roms_path, epoch_size, model, optim, criterion, rewardQueue, frameRatio, framesPerStep):
         super(Worker, self).__init__()
         self.env_id = env_id
         self.roms_path = roms_path
-        self.difficulty = difficulty
         self.epoch_size = epoch_size
         self.model = model
         self.optim = optim
@@ -47,16 +46,23 @@ class Worker(mp.Process):
             logger.error(identifier)
             logger.error(traceback.format_exc())
 
+    def map_action(moveAction, attackAction):
+        action_multi_binary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        action_multi_binary[moveAction] = 1
+        action_multi_binary[attackAction] = 1
+
+        return action_multi_binary
+
     def generate_playthrough(self, frames):
         observations = [[]]
         histories = [{"moveAction": [], "attackAction": [], "reward": []}]
         epoch_reward = 0
         total_round = 0
-        game_done = False
+        done = False
 
         for i in range(self.epoch_size):
 
-            while not game_done:
+            while not done:
                 x = wu.prepro(frames)
 
                 observations[total_round].append(x.cpu())
@@ -69,7 +75,8 @@ class Worker(mp.Process):
                 histories[total_round]["attackAction"].append(torch.FloatTensor(1).fill_(attackAction))
 
                 # TODO: fix action mapping
-                obs, rew, done, info = self.env.step(moveAction, attackAction)
+                action = map_action(moveAction, attackAction)
+                obs, rew, done, info = self.env.step(action)
 
                 histories[total_round]["reward"].append(torch.FloatTensor(1).fill_(rew))
 
@@ -79,8 +86,7 @@ class Worker(mp.Process):
                     total_round += 1
                     histories.append({"moveAction": [], "attackAction": [], "reward": []})
                     observations.append([])
-                    # if game_done:
-                        # self.rewardQueue.put({"reward": epoch_reward, "stage": self.env.stage})
+                    self.rewardQueue.put({"reward": epoch_reward})
                     frames = self.env.reset()
 
         return observations, histories, frames

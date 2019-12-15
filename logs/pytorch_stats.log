@@ -1,0 +1,54 @@
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:local variable 'frames' referenced before assignment
+ERROR:pytorch.Worker:local variable 'frames' referenced before assignment
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 39, in run
+    observations, histories, frames = self.generate_playthrough(frames)
+UnboundLocalError: local variable 'frames' referenced before assignment
+
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 39, in run
+    observations, histories, frames = self.generate_playthrough(frames)
+UnboundLocalError: local variable 'frames' referenced before assignment
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:local variable 'frames' referenced before assignment
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 39, in run
+    observations, histories, frames = self.generate_playthrough(frames)
+UnboundLocalError: local variable 'frames' referenced before assignment
+
+ERROR:pytorch.Worker:local variable 'frames' referenced before assignment
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 39, in run
+    observations, histories, frames = self.generate_playthrough(frames)
+UnboundLocalError: local variable 'frames' referenced before assignment
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:local variable 'frames' referenced before assignment
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 39, in run
+    observations, histories, frames = self.generate_playthrough(frames)
+UnboundLocalError: local variable 'frames' referenced before assignment
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:local variable 'frames' referenced before assignment
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 39, in run
+    observations, histories, frames = self.generate_playthrough(frames)
+UnboundLocalError: local variable 'frames' referenced before assignment
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:local variable 'frames' referenced before assignment
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(frames)
+UnboundLocalError: local variable 'frames' referenced before assignment
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:local variable 'frames' referenced before assignment
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(frames)
+UnboundLocalError: local variable 'frames' referenced before assignment
+

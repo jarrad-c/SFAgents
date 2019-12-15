@@ -19,19 +19,19 @@ def setupModel(learning_rate, episode, framesPerStep, loadPath):
     if episode > 0:  # For loading a saved model
         model.load_state_dict(torch.load(loadPath + "models/" + str(episode), map_location=lambda storage, loc: storage))
         optim.load_state_dict(torch.load(loadPath + "optims/" + str(episode)))
-    model.cuda()  # Moves the network matrices to the GPU
-    model.share_memory()  # For multiprocessing
+    #model.cuda()  # Moves the network matrices to the GPU
+    #model.share_memory()  # For multiprocessing
     return model, optim
 
 
-def setupWorkers(roms_path, difficulty, epoch_size, learning_rate, frameRatio, framesPerStep, episode, workerCount, loadPath):
+def setupWorkers(roms_path, epoch_size, learning_rate, frameRatio, framesPerStep, episode, workerCount, loadPath):
     env_ids = ['MortalKombat3-Genesis', 'StreetFighterIISpecialChampionEdition-Genesis']
     model, optim = setupModel(learning_rate, episode, framesPerStep, loadPath)
     criterion = nn.CrossEntropyLoss(reduce=False)
 
     rewardQ = Queue()
 
-    workers = [Worker(env_ids[i], roms_path, difficulty, epoch_size, model, optim, criterion, rewardQ, frameRatio, framesPerStep) for i in range(workerCount)]
+    workers = [Worker(env_ids[i], roms_path, epoch_size, model, optim, criterion, rewardQ, frameRatio, framesPerStep) for i in range(workerCount)]
     return workers, model, optim, rewardQ
 
 
