@@ -83,10 +83,10 @@ def evaluate(framesPerStep, loadPath, learning_rate, episode):
         action = Worker.map_action(moveAction, attackAction)
         for j in range(framesPerStep):
             if(j < framesPerStep-1):
-                obs, rew, done, info = self.env.step(action)
+                obs, rew, done, info = env.step(action)
             else:
                 env.render()
-                obs, rew, done, info = self.env.step([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                obs, rew, done, info = env.step([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
             frames.append(obs)
 
     env.close()
