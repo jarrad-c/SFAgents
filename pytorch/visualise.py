@@ -35,18 +35,20 @@ savePath = 'vid/'
 env_id = 'StreetFighterIISpecialChampionEdition-Genesis'
 # set to model to load
 episode = 100
+show_viz = False
 
 model = setupModel(episode, framesPerStep, loadPath)
 
 roms_path = "../roms/"  # Replace this with the path to your ROMs
 env = retro.make(env_id)
 
-fig = plt.figure()
-plt.ion()
-obs = env.reset()
-im: AxesImage = plt.imshow(prepro(obs, isGrey), cmap="gray" if isGrey else None)
-plt.axis("off")
-plt.show()
+if show_viz:
+    fig = plt.figure()
+    plt.ion()
+    obs = env.reset()
+    im: AxesImage = plt.imshow(prepro(obs, isGrey), cmap="gray" if isGrey else None)
+    plt.axis("off")
+    plt.show()
 done = False
 
 frames = [obs, obs, obs]
@@ -66,8 +68,9 @@ while not done:
         else:
             obs, rew, done, info = env.step([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         frames.append(obs)
-        im.set_data(prepro(obs, isGrey))
         images.append(env.render(mode='rgb_array'))
-        plt.pause(0.00001)
+        if show_viz:
+            im.set_data(prepro(obs, isGrey))
+            plt.pause(0.00001)
     
 imageio.mimsave(env_id + '_sfagent.gif', [np.array(img) for i, img in enumerate(images) if i%2 == 0], fps=29)
