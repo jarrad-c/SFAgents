@@ -19,16 +19,16 @@ def prepro(frames):
         frame = frame[::2, ::2]  # downsample
         frame = frame / 255
         frame = frame - frame.mean()
-        #x.append(torch.cuda.FloatTensor(frame.reshape(1, 61, 103))) use this line if you have nvdia gpu
-        x.append(torch.FloatTensor(frame.reshape(1, 100, 128)))
+        x.append(torch.cuda.FloatTensor(frame.reshape(1, 100, 128))) # use this line if you have nvdia gpu
+        #x.append(torch.FloatTensor(frame.reshape(1, 100, 128)))
     return torch.stack(x, dim=1)
 
 # Randomly selects an action from the supplied distribution f
 def chooseAction(f):
-    th = torch.FloatTensor(1).uniform_()
-    #th = torch.cuda.FloatTensor(1).uniform_()
-    runSum = torch.FloatTensor(1).fill_(0)
-    #runSum = torch.cuda.FloatTensor(1).fill_(0)
+    # th = torch.FloatTensor(1).uniform_()
+    th = torch.cuda.FloatTensor(1).uniform_()
+    # runSum = torch.FloatTensor(1).fill_(0)
+    runSum = torch.cuda.FloatTensor(1).fill_(0)
     for i in range(f.size(1)):
         runSum += f.data[0, i]
         if th[0] < runSum[0]:
@@ -119,13 +119,13 @@ def train(model, optim, criterion, dataset, batch_size=128):
 
     optim.zero_grad()  # Resets the models gradients
     for i, (x, t) in enumerate(dataloader):
-        observation = Variable(x.cpu())
+        observation = Variable(x.cuda())
         moveOut, attackOut = model(observation)
 
         # torch.cuda.LongTensor for
-        moveActions = Variable(t[:, 0].type(torch.LongTensor))
-        attackActions = Variable(t[:, 1].type(torch.LongTensor))
-        rewards = Variable(t[:, 2].cpu())
+        moveActions = Variable(t[:, 0].type(torch.cuda.LongTensor))
+        attackActions = Variable(t[:, 1].type(torch.cuda.LongTensor))
+        rewards = Variable(t[:, 2].cuda())
 
         # Calculates the loss for the movement outputs and the attack outputs
         loss = torch.sum(rewards * (criterion(moveOut, moveActions) + criterion(attackOut, attackActions)))
