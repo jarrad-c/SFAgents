@@ -23,7 +23,7 @@ def setupModel(learning_rate, episode, framesPerStep, loadPath):
     if episode > 0:  # For loading a saved model
         model.load_state_dict(torch.load(loadPath + "models/" + str(episode), map_location=lambda storage, loc: storage))
         optim.load_state_dict(torch.load(loadPath + "optims/" + str(episode)))
-    model.cpu()  # Moves the network matrices to the GPU
+    model.cuda()  # Moves the network matrices to the GPU
     model.share_memory()
     return model, optim
 
