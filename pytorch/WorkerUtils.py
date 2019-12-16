@@ -16,11 +16,11 @@ def prepro(frames):
     for frame in frames:
         # frame = frame[32:214, 12:]  # crop
         frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
-        frame = frame[::3, ::3]  # downsample
+        frame = frame[::2, ::2]  # downsample
         frame = frame / 255
         frame = frame - frame.mean()
         #x.append(torch.cuda.FloatTensor(frame.reshape(1, 61, 103))) use this line if you have nvdia gpu
-        x.append(torch.FloatTensor(frame.reshape(1, 67, 86)))
+        x.append(torch.FloatTensor(frame.reshape(1, 100, 128)))
     return torch.stack(x, dim=1)
 
 # Randomly selects an action from the supplied distribution f
@@ -81,6 +81,14 @@ def compileHistory(observations, history):
 
     return td.TensorDataset(observations, torch.stack((moveActions, attackActions, rewards), dim=1))
 
+def map_action(moveAction, attackAction):
+    move_act_idxs = [4, 5, 6, 7]
+    attack_act_idxs = [0, 1, 8, 9, 10, 11]
+    action_multi_binary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    action_multi_binary[move_act_idxs[moveAction]] = 1
+    action_multi_binary[attack_act_idxs[attackAction]] = 1
+
+    return action_multi_binary
 
 # The same as the "compileHistory" function but for multiple rounds
 # The processing of rewards should be done in seperate batches then put together, otherwise rewards from one round could be assigned to a different round.
@@ -114,7 +122,7 @@ def train(model, optim, criterion, dataset, batch_size=128):
         observation = Variable(x.cpu())
         moveOut, attackOut = model(observation)
 
-        # torch.cuda.LongTensor for gpu
+        # torch.cuda.LongTensor for
         moveActions = Variable(t[:, 0].type(torch.LongTensor))
         attackActions = Variable(t[:, 1].type(torch.LongTensor))
         rewards = Variable(t[:, 2].cpu())

@@ -62,7 +62,7 @@ if __name__ == '__main__':
     roms_path = "../roms"
     frameRatio = 2
     framesPerStep = 3
-    learning_rate = 5e-5
+    learning_rate = 1e-5
     episode = 0  # Change episode to load from presaved model, check saves for saves
     epoch_size = 1  # How many episodes before training
     batch_save = 100  # How many results before saving the current model and optimiser

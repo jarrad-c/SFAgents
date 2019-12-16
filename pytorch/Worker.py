@@ -45,15 +45,6 @@ class Worker(mp.Process):
             logger.error(identifier)
             logger.error(traceback.format_exc())
 
-    def map_action(self, moveAction, attackAction):
-        move_act_idxs = [4, 5, 6, 7]
-        attack_act_idxs = [0, 1, 8, 9, 10, 11]
-        action_multi_binary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        action_multi_binary[move_act_idxs[moveAction]] = 1
-        action_multi_binary[attack_act_idxs[attackAction]] = 1
-
-        return action_multi_binary
-
     def generate_playthrough(self, initial_obs):
         observations = [[]]
         histories = [{"moveAction": [], "attackAction": [], "reward": []}]
@@ -78,7 +69,7 @@ class Worker(mp.Process):
                 histories[total_round]["attackAction"].append(torch.FloatTensor(1).fill_(attackAction))
 
                 frames = []
-                action = self.map_action(moveAction, attackAction) 
+                action = wu.map_action(moveAction, attackAction) 
                 action_reward = 0
                 for j in range(self.framesPerStep):
                     if(j < self.framesPerStep-1):
