@@ -20,7 +20,7 @@ def prepro(frames):
         frame = frame / 255
         frame = frame - frame.mean()
         #x.append(torch.cuda.FloatTensor(frame.reshape(1, 61, 103))) use this line if you have nvdia gpu
-        x.append(torch.FloatTensor(frame.reshape(1, 100, 128)))
+        x.append(torch.FloatTensor(frame.reshape(1, 112, 160)))
     return torch.stack(x, dim=1)
 
 # Randomly selects an action from the supplied distribution f

@@ -9,6 +9,7 @@ import torch
 import torch.nn.functional as F
 import imageio
 import numpy as np
+import os
 
 
 
@@ -32,20 +33,23 @@ isGrey = True
 framesPerStep = 3
 loadPath = '../pytorch/saves/'
 savePath = 'vid/'
-env_id = 'StreetFighterIISpecialChampionEdition-Genesis'
+env_id = 'MortalKombat3-Genesis'
 # set to model to load
-episode = 100
+episode = 200
 show_viz = False
+
+if not os.path.exists(savePath):
+    os.makedirs(savePath)
 
 model = setupModel(episode, framesPerStep, loadPath)
 
 roms_path = "../roms/"  # Replace this with the path to your ROMs
 env = retro.make(env_id)
 
+obs = env.reset()
 if show_viz:
     fig = plt.figure()
     plt.ion()
-    obs = env.reset()
     im: AxesImage = plt.imshow(prepro(obs, isGrey), cmap="gray" if isGrey else None)
     plt.axis("off")
     plt.show()
@@ -73,4 +77,4 @@ while not done:
             im.set_data(prepro(obs, isGrey))
             plt.pause(0.00001)
     
-imageio.mimsave(env_id + '_sfagent.gif', [np.array(img) for i, img in enumerate(images) if i%2 == 0], fps=29)
+imageio.mimsave(savePath + env_id + '_sfagent.gif', [np.array(img) for i, img in enumerate(images) if i%2 == 0], fps=29)

@@ -29,7 +29,7 @@ class Worker(mp.Process):
     def run(self):
         try:
             logger.info("Starting Worker")
-            self.env = retro.make(self.env_id, record='rec/')
+            self.env = retro.make(self.env_id)
             initial_obs = self.env.reset()
             while True:
                 self.model.eval()

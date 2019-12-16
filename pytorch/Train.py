@@ -35,7 +35,7 @@ def setupWorkers(roms_path, epoch_size, learning_rate, frameRatio, framesPerStep
 
     rewardQ = Queue()
     # change to env_ids[1] to train MK3
-    workers = [Worker(env_ids[0], roms_path, epoch_size, model, optim, criterion, rewardQ, frameRatio, framesPerStep) for i in range(workerCount)]
+    workers = [Worker(env_ids[1], roms_path, epoch_size, model, optim, criterion, rewardQ, frameRatio, framesPerStep) for i in range(workerCount)]
     return workers, model, optim, rewardQ
 
 
