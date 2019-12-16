@@ -59,3 +59,209 @@ ERROR:pytorch.Worker:Traceback (most recent call last):
     observations, histories, frames = self.generate_playthrough(frames)
 UnboundLocalError: local variable 'frames' referenced before assignment
 
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:too many indices for array
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 38, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 69, in generate_playthrough
+    x = wu.prepro(frames)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\WorkerUtils.py", line 18, in prepro
+    frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
+IndexError: too many indices for array
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:name 'framesPerStep' is not defined
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 37, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 66, in generate_playthrough
+    for k in range(framesPerStep):
+NameError: name 'framesPerStep' is not defined
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:name 'framesPerStep' is not defined
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 37, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 66, in generate_playthrough
+    for k in range(framesPerStep):
+NameError: name 'framesPerStep' is not defined
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:name 'framesPerStep' is not defined
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 37, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 66, in generate_playthrough
+    for k in range(framesPerStep):
+NameError: name 'framesPerStep' is not defined
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:name 'framesPerStep' is not defined
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 37, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 65, in generate_playthrough
+    for k in range(framesPerStep):
+NameError: name 'framesPerStep' is not defined
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:name 'framesPerStep' is not defined
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 37, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 65, in generate_playthrough
+    for k in range(framesPerStep):
+NameError: name 'framesPerStep' is not defined
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:name 'framesPerStep' is not defined
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 37, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 65, in generate_playthrough
+    for k in range(framesPerStep):
+NameError: name 'framesPerStep' is not defined
+
+INFO:pytorch.Worker:Starting Worker
+ERROR:pytorch.Worker:name 'framesPerStep' is not defined
+ERROR:pytorch.Worker:Traceback (most recent call last):
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 37, in run
+    observations, histories, frames = self.generate_playthrough(initial_obs)
+  File "C:\Users\matth\EE460J\Final Project\SFAgents\pytorch\Worker.py", line 65, in generate_playthrough
+    for k in range(framesPerStep):
+NameError: name 'framesPerStep' is not defined
+

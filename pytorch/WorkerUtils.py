@@ -4,23 +4,31 @@ import matplotlib.pyplot as plt
 from torch.autograd import Variable
 
 
+## Street Fighter is 
+## (200, 256, 3) by defualt
+
+## Mortal Kombat is 
+## (224, 320, 3) by default
+
 # pre-processes the frames returned by the game, so that they are suitable for the network
 def prepro(frames):
     x = []
     for frame in frames:
-        frame = frame[32:214, 12:372]  # crop
+        frame = frame[32:214, 12:]  # crop
         frame = 0.2989 * frame[:, :, 0] + 0.5870 * frame[:, :, 1] + 0.1140 * frame[:, :, 2]  # greyscale
         frame = frame[::3, ::3]  # downsample
         frame = frame / 255
         frame = frame - frame.mean()
-        x.append(torch.cuda.FloatTensor(frame.reshape(1, 61, 120)))
+        #x.append(torch.cuda.FloatTensor(frame.reshape(1, 61, 103))) use this line if you have nvdia gpu
+        x.append(torch.FloatTensor(frame.reshape(1, 61, 103)))
     return torch.stack(x, dim=1)
-
 
 # Randomly selects an action from the supplied distribution f
 def chooseAction(f):
-    th = torch.cuda.FloatTensor(1).uniform_()
-    runSum = torch.cuda.FloatTensor(1).fill_(0)
+    th = torch.FloatTensor(1).uniform_()
+    #th = torch.cuda.FloatTensor(1).uniform_()
+    runSum = torch.FloatTensor(1).fill_(0)
+    #runSum = torch.cuda.FloatTensor(1).fill_(0)
     for i in range(f.size(1)):
         runSum += f.data[0, i]
         if th[0] < runSum[0]:

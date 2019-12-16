@@ -30,12 +30,11 @@ class Worker(mp.Process):
         try:
             logger.info("Starting Worker")
             self.env = retro.make(self.env_id, record='rec/')
-            # self.env = Environment(self.env_id, self.roms_path, difficulty=self.difficulty, frame_ratio=self.frameRatio, frames_per_step=self.framesPerStep, throttle=False)
-            # frames = self.env.start()
+            initial_obs = self.env.reset()
             while True:
                 self.model.eval()
 
-                observations, histories, frames = self.generate_playthrough(frames)
+                observations, histories, frames = self.generate_playthrough(initial_obs)
 
                 self.model.train()
 
@@ -48,22 +47,24 @@ class Worker(mp.Process):
 
     def map_action(moveAction, attackAction):
         move_act_idxs = [4, 5, 6, 7]
-        attack_act_idxs = [0, 1, 8, 9, 1, 11]
+        attack_act_idxs = [0, 1, 8, 9, 10, 11]
         action_multi_binary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         action_multi_binary[move_act_idxs[moveAction]] = 1
         action_multi_binary[attack_act_idxs[attackAction]] = 1
 
         return action_multi_binary
 
-    def generate_playthrough(self, frames):
+    def generate_playthrough(self, initial_obs):
         observations = [[]]
         histories = [{"moveAction": [], "attackAction": [], "reward": []}]
         epoch_reward = 0
-        total_round = 0
         done = False
+        frames = []
 
         for i in range(self.epoch_size):
-            print('epochs happening', i)
+            for k in range(framesPerStep):
+                frames.append(initial_obs)
+
             while not done:
                 x = wu.prepro(frames)
 
@@ -76,18 +77,22 @@ class Worker(mp.Process):
                 histories[total_round]["moveAction"].append(torch.FloatTensor(1).fill_(moveAction))
                 histories[total_round]["attackAction"].append(torch.FloatTensor(1).fill_(attackAction))
 
+                frames = []
                 action = map_action(moveAction, attackAction)
-                obs, rew, done, info = self.env.step(action)
+                for j in range(framesPerStep):
+                    if(j < framesPerStep-1):
+                        obs, rew, done, info = self.env.step(action)
+                    else:
+                        obs, rew, done, info = self.env.step([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+                    frames.append(obs)
 
                 histories[total_round]["reward"].append(torch.FloatTensor(1).fill_(rew))
 
                 epoch_reward += rew
 
-                #if done:
-            total_round += 1
             histories.append({"moveAction": [], "attackAction": [], "reward": []})
             observations.append([])
             self.rewardQueue.put({"reward": epoch_reward})
-            frames = self.env.reset()
+            initial_obs = self.env.reset()
 
         return observations, histories, frames
