@@ -25,8 +25,7 @@ class Model(nn.Module):
         self.conv3 = initConvLayer(24, 36)
         self.conv4 = initConvLayer(36, 36)
         self.conv5 = initConvLayer(36, 24)
-        #self.fc1 = nn.Linear(24*1*3, move_classes+attack_classes) # The fully connected tail
-        self.fc1 = nn.Linear(24*1*3, 12) # The fully connected tail
+        self.fc1 = nn.Linear(24*1*3, move_classes+attack_classes) # The fully connected tail
         nn.init.xavier_uniform_(self.fc1.weight)
 
     # Applies forward propagation to the inputs 

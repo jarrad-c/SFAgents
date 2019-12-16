@@ -14,13 +14,13 @@ logging.basicConfig(filename='logs/pytorch_stats.log', level=logging.INFO)
 
 # Creates the model used for training
 def setupModel(learning_rate, episode, framesPerStep, loadPath):
-    model = Model(framesPerStep, 9, 10)
+    model = Model(framesPerStep, 4, 6)
     optim = opt.Adam(model.parameters(), lr=learning_rate)
     if episode > 0:  # For loading a saved model
         model.load_state_dict(torch.load(loadPath + "models/" + str(episode), map_location=lambda storage, loc: storage))
         optim.load_state_dict(torch.load(loadPath + "optims/" + str(episode)))
-    #model.cuda()  # Moves the network matrices to the GPU
-    #model.share_memory()  # For multiprocessing
+    model.cuda()  # Moves the network matrices to the GPU
+    model.share_memory()  # For multiprocessing
     return model, optim
 
 

@@ -47,9 +47,11 @@ class Worker(mp.Process):
             logger.error(traceback.format_exc())
 
     def map_action(moveAction, attackAction):
+        move_act_idxs = [4, 5, 6, 7]
+        attack_act_idxs = [0, 1, 8, 9, 1, 11]
         action_multi_binary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        action_multi_binary[moveAction] = 1
-        action_multi_binary[attackAction] = 1
+        action_multi_binary[move_act_idxs[moveAction]] = 1
+        action_multi_binary[attack_act_idxs[attackAction]] = 1
 
         return action_multi_binary
 
@@ -74,7 +76,6 @@ class Worker(mp.Process):
                 histories[total_round]["moveAction"].append(torch.FloatTensor(1).fill_(moveAction))
                 histories[total_round]["attackAction"].append(torch.FloatTensor(1).fill_(attackAction))
 
-                # TODO: fix action mapping
                 action = map_action(moveAction, attackAction)
                 obs, rew, done, info = self.env.step(action)
 
