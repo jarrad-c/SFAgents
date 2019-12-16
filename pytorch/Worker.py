@@ -2,7 +2,7 @@ import torch
 import torch.multiprocessing as mp
 from torch.autograd import Variable
 import torch.nn.functional as F
-import pytorch.WorkerUtils as wu
+import WorkerUtils as wu
 import retro
 import traceback
 import logging
@@ -33,11 +33,11 @@ class Worker(mp.Process):
             initial_obs = self.env.reset()
             while True:
                 self.model.eval()
-
+                # logger.info('Generating Playthrough')
                 observations, histories, frames = self.generate_playthrough(initial_obs)
 
                 self.model.train()
-
+                # logger.info('Training Model')
                 dataset = wu.compileHistories(observations, histories)
                 wu.train(self.model, self.optim, self.criterion, dataset)
 
@@ -45,7 +45,7 @@ class Worker(mp.Process):
             logger.error(identifier)
             logger.error(traceback.format_exc())
 
-    def map_action(moveAction, attackAction):
+    def map_action(self, moveAction, attackAction):
         move_act_idxs = [4, 5, 6, 7]
         attack_act_idxs = [0, 1, 8, 9, 10, 11]
         action_multi_binary = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -58,18 +58,18 @@ class Worker(mp.Process):
         observations = [[]]
         histories = [{"moveAction": [], "attackAction": [], "reward": []}]
         epoch_reward = 0
+        total_round = 0
         done = False
         frames = []
 
         for i in range(self.epoch_size):
-            for k in range(framesPerStep):
+            for k in range(self.framesPerStep):
                 frames.append(initial_obs)
 
             while not done:
                 x = wu.prepro(frames)
 
                 observations[total_round].append(x.cpu())
-
                 moveOut, attackOut = self.model(Variable(x))
                 moveAction = wu.chooseAction(F.softmax(moveOut, dim=1))
                 attackAction = wu.chooseAction(F.softmax(attackOut, dim=1))
@@ -78,20 +78,23 @@ class Worker(mp.Process):
                 histories[total_round]["attackAction"].append(torch.FloatTensor(1).fill_(attackAction))
 
                 frames = []
-                action = map_action(moveAction, attackAction)
-                for j in range(framesPerStep):
-                    if(j < framesPerStep-1):
+                action = self.map_action(moveAction, attackAction) 
+                action_reward = 0
+                for j in range(self.framesPerStep):
+                    if(j < self.framesPerStep-1):
                         obs, rew, done, info = self.env.step(action)
                     else:
                         obs, rew, done, info = self.env.step([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
                     frames.append(obs)
-
-                histories[total_round]["reward"].append(torch.FloatTensor(1).fill_(rew))
-
-                epoch_reward += rew
-
+                    action_reward += rew
+                    epoch_reward += rew
+                    if done:
+                        break
+                histories[total_round]["reward"].append(torch.FloatTensor(1).fill_(action_reward))
+            # logger.info('Round done!')
+            total_round += 1
             histories.append({"moveAction": [], "attackAction": [], "reward": []})
-            observations.append([])
+            # observations.append([])
             self.rewardQueue.put({"reward": epoch_reward})
             initial_obs = self.env.reset()
 
