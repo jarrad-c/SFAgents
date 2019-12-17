@@ -10,7 +10,7 @@ import torch.nn.functional as F
 import imageio
 import numpy as np
 import os
-
+import sys
 
 
 
@@ -26,7 +26,7 @@ def setupModel(episode, framesPerStep, loadPath):
     model = Model(framesPerStep, 4, 6)
     if episode > 0:  # For loading a saved model
         model.load_state_dict(torch.load(loadPath + "models/" + str(episode), map_location=lambda storage, loc: storage))
-    model.cpu()  # Moves the network matrices to the GPU
+    model.cuda()  # Moves the network matrices to the GPU
     return model
 
 isGrey = True
@@ -35,7 +35,7 @@ loadPath = '../pytorch/saves/'
 savePath = 'vid/'
 env_id = 'MortalKombat3-Genesis'
 # set to model to load
-episode = 200
+episode = int(sys.argv[1]) 
 show_viz = False
 
 if not os.path.exists(savePath):
